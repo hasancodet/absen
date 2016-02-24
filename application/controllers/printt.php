@@ -7,12 +7,6 @@ class Printt extends CI_Controller {
 		{
 			parent::__construct();
 
-			// $this->load->model('jadwal');
-			// $data['jadwal'] = $this->jadwal->tampilJadwal();
-			// $this->load->view('template/header');
-			// $this->load->view('jadwal/jadwal_kuliah', $data);
-			// $this->load->view('template/sidebar');
-			// $this->load->view('template/footer');
 		}
 
 	public function printLaporan(){
@@ -49,13 +43,10 @@ class Printt extends CI_Controller {
 			$presentase = (int)$presentasefloat;
 			$data['statusBerangkatMahasiswa'][$j] = array('nim' => $nim , 'nama_mahasiswa' => $nama_mahasiswa,"tanggal" => $tanggal, "status"=> $status, "jumlah_presensi"=>$jumlah_presensi, "jumlah_pertemuan"=>$jumlah_pertemuan,"presentase"=>$presentase );
 			$j++;
-			// print_r($data['statusBerangkatMahasiswa']);die();
 		}
 		$data['tanggal'] = $this->model_absensi->tanggalKuliah($id_mata_kuliah);
 		
 		$this->load->view('print/print_laporan', $data);
-
-		//redirect(base_url().'home/laporan');
 	}
 } 
 

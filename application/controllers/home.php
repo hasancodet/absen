@@ -160,39 +160,7 @@ class Home extends CI_Controller {
 		// die();		
 	}
 
-	public function absenKelasEdit($id_jadwal, $id_mata_kuliah)
-	{
-
-		$this->load->model('model_jadwal');
-		$this->load->model('model_absensi');
-		
-		$i = 0;
-		$jadwalMahasiswa = $this->model_jadwal->detailJadwalMahasiswa($id_jadwal);
-		foreach ($jadwalMahasiswa->result_array() as $row) {
-			$j = 0;
-			$nim = $row['nim'];
-			$nama_mahasiswa = $row['nama_mahasiswa'];
-			$statusBerangkat = $this->model_absensi->statusBerangkat($nim, $id_mata_kuliah);
-			foreach ($statusBerangkat->result_array() as $row) {
-				$id_absensi[$j] = $row['id_absensi'];
-				$tanggal[$j] = $row['tanggal'];
-				$status[$j] = $row['status'];
-				$j++;
-			}
-			$data['statusBerangkatMahasiswa'][$i] = array('nim' => $nim , 'nama_mahasiswa' => $nama_mahasiswa,"tanggal" => $tanggal,"id_absensi"=>$id_absensi, "status"=> $status, 'id_mata_kuliah'=>$id_mata_kuliah, 'id_jadwal'=>$id_jadwal );
-			$i++;
-		}
-		$data['tanggal'] = $this->model_absensi->tanggalKuliah($id_mata_kuliah);
-		$data['jadwal'] = $this->model_jadwal->detailJadwal($id_jadwal);
-				
-		$this->load->view('template/header');
-		$this->load->view('absensi/absensi_edit', $data);
-		$this->load->view('template/sidebar');
-		$this->load->view('template/footer');
-
-		// print_r($data['statusBerangkatMahasiswa']);
-		// die();		
-	}
+	
 
 	public function laporanKelas($id_mata_kuliah, $id_jadwal){
 
@@ -201,23 +169,6 @@ class Home extends CI_Controller {
 
 		$data['jadwal'] = $this->model_jadwal->detailJadwal($id_jadwal);
 		$jadwalMahasiswa = $this->model_jadwal->detailJadwalMahasiswa($id_jadwal);
-		
-		// $i = 0;
-		// foreach ($jadwalMahasiswa->result_array() as $row) {
-		// 	$nim = $row['nim'];
-		// 	$nama_mahasiswa = $row['nama_mahasiswa'];
-		// 	$presensi = $this->model_absensi->hitungPresensi($nim,$id_mata_kuliah);
-		// 	foreach ($presensi->result_array() as $row) {
-		// 		$jumlah_presensi = $row['jumlah_presensi'];
-		// 	}
-		// 	$pertemuan = $this->model_absensi->hitungPertemuan($nim,$id_mata_kuliah);
-		// 	foreach ($pertemuan->result_array() as $row) {
-		// 		$jumlah_pertemuan = $row['jumlah_pertemuan'];
-		// 	}
-		// 	$presentasefloat = ($jumlah_presensi / $jumlah_pertemuan) * 100;
-		// 	$presentase = (int)$presentasefloat;
-		// 	$data['presensi'][$i] = array("nim" => $nim, "nama_mahasiswa"=>$nama_mahasiswa,"jumlah_presensi"=> $jumlah_presensi,"jumlah_pertemuan"=> $jumlah_pertemuan, "presentase" => $presentase);
-		// 	$i++;
 
 		$j = 0;
 		$jadwalMahasiswa = $this->model_jadwal->detailJadwalMahasiswa($id_jadwal);
@@ -243,7 +194,6 @@ class Home extends CI_Controller {
 			$presentase = (int)$presentasefloat;
 			$data['statusBerangkatMahasiswa'][$j] = array('nim' => $nim , 'nama_mahasiswa' => $nama_mahasiswa,"tanggal" => $tanggal, "status"=> $status, "jumlah_presensi"=>$jumlah_presensi, "jumlah_pertemuan"=>$jumlah_pertemuan,"presentase"=>$presentase );
 			$j++;
-			// print_r($data['statusBerangkatMahasiswa']);die();
 		}
 		$data['tanggal'] = $this->model_absensi->tanggalKuliah($id_mata_kuliah);
 		
@@ -258,14 +208,13 @@ class Home extends CI_Controller {
 		$this->load->view('login');
 	}
 
-		//fungsi coba-coba
+	//fungsi coba-coba
 	public function jajal()
 	{
 		
 
 		$this->load->model('model_jajal');
 		$data['jajal'] = $this->model_jajal->jajal();
-		//$jajal = $this->db->get('absensi');
 		foreach ($data['jajal']->result_array() as $row) {
 			$jajall = $row['id_absensi']." ";
 			print_r($jajall);
@@ -319,5 +268,40 @@ class Home extends CI_Controller {
 		$this->load->view('template/footer');	
 	}
 	*/
+	/*
+	//fungsi yang tidak jadi dipakai
+	public function absenKelasEdit($id_jadwal, $id_mata_kuliah)
+	{
+
+		$this->load->model('model_jadwal');
+		$this->load->model('model_absensi');
+		
+		$i = 0;
+		$jadwalMahasiswa = $this->model_jadwal->detailJadwalMahasiswa($id_jadwal);
+		foreach ($jadwalMahasiswa->result_array() as $row) {
+			$j = 0;
+			$nim = $row['nim'];
+			$nama_mahasiswa = $row['nama_mahasiswa'];
+			$statusBerangkat = $this->model_absensi->statusBerangkat($nim, $id_mata_kuliah);
+			foreach ($statusBerangkat->result_array() as $row) {
+				$id_absensi[$j] = $row['id_absensi'];
+				$tanggal[$j] = $row['tanggal'];
+				$status[$j] = $row['status'];
+				$j++;
+			}
+			$data['statusBerangkatMahasiswa'][$i] = array('nim' => $nim , 'nama_mahasiswa' => $nama_mahasiswa,"tanggal" => $tanggal,"id_absensi"=>$id_absensi, "status"=> $status, 'id_mata_kuliah'=>$id_mata_kuliah, 'id_jadwal'=>$id_jadwal );
+			$i++;
+		}
+		$data['tanggal'] = $this->model_absensi->tanggalKuliah($id_mata_kuliah);
+		$data['jadwal'] = $this->model_jadwal->detailJadwal($id_jadwal);
+				
+		$this->load->view('template/header');
+		$this->load->view('absensi/absensi_edit', $data);
+		$this->load->view('template/sidebar');
+		$this->load->view('template/footer');
+
+		// print_r($data['statusBerangkatMahasiswa']);
+		// die();		
+	}*/
 }
 ?>

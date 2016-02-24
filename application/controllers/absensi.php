@@ -27,7 +27,20 @@ class Absensi extends CI_Controller {
 	redirect(base_url().'index.php/home/index');
 	}
 
-	public function editAbsensi(){
+	public function absenjajal(){
+		redirect(base_url().'index.php/home/index');
+	}
+
+
+	
+} 
+
+?>
+
+<?php
+/*
+fungsi yang tidak jadi dipakai
+public function editAbsensi(){
 		$id_absensi = $this->input->post('id_absensi');
 		$id_jadwal = $this->input->post('id_jadwal');
 		$id_mata_kuliah = $this->input->post('id_mata_kuliah');
@@ -38,16 +51,7 @@ class Absensi extends CI_Controller {
 
 		redirect(base_url().'home/absenKelasEdit/'.$id_jadwal.'/'.$id_mata_kuliah);
 	}
-	
-
-	public function absenjajal(){
-		redirect(base_url().'index.php/home/index');
-	}
-
-
-	
-} 
-
+*/
 ?>
 
 <!-- 

@@ -14,16 +14,16 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Absensi real time</h3>
+                  <h3 class="box-title">Absensi real time <?php date_default_timezone_set('Asia/Jakarta'); echo date("H:i:s");?></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>NIM</th>
-                        <th>Nama</th>
-                        <th>Mata Kuliah</th>
                         <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>NIM</th>
+                        <th>Mata Kuliah</th>
                         <th>Jam</th>
                         <th>Status</th>
                       </tr>
@@ -31,16 +31,13 @@
                     <tbody>
                       <?php foreach ($absen->result() as $row) { ?>
                       <tr>
-                        <td><?php echo $row->nim ;?></td>
-                        <td><?php echo $row->nama_mahasiswa ;?></td>
-                        <td><?php echo $row->mata_kuliah ;?></td>
-                        <td>
-                          <?php 
-                            // $tanggal = $row->tanggal ;
-                            // echo date('d-m-Y', strtotime($tanggal));
+                        <td><?php 
                             echo $row->tanggal;
                           ?>
                         </td>
+                        <td><?php echo $row->nama_mahasiswa ;?></td>
+                        <td><?php echo $row->nim ;?></td>
+                        <td><?php echo $row->mata_kuliah ;?></td>
                         <td><?php echo $row->jam ;?></td>
                         <td><?php 
                           $status = $row->status ;

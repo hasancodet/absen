@@ -42,7 +42,7 @@
         <div class="row">
           <div class="col-xs-12">
             <h2 class="page-header">
-              <i class="fa fa-globe"></i> Sekolah Vokasi
+              <i class="fa fa-university"></i> Sekolah Vokasi
               <small class="pull-right">Date: <?php echo date("d m Y");?></small>
             </h2>
           <div class="col-xs-12">
@@ -92,9 +92,9 @@
                       <td><?php echo $row['presentase']." %" ;?></td>
                       <td><?php $persen = $row['presentase'];
                             if ($persen > 74 ) {
-                              echo "LULUS";
+                              echo "MEMENUHI";
                             }else{
-                              echo "TIDAK Lulus";
+                              echo "TIDAK MEMENUHI";
                             }
                              ?>
                       </td>

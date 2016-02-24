@@ -32,7 +32,7 @@
                     <tr>
                     <form method="post" action="<?= base_url().'printt/printLaporan';?>" >
                       <td>
-                        <button class="btn btn-primary" type="submit">Print</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-print"></i> Print</button>
                         <input value="<?= $row->id_jadwal ;?>" name="id_jadwal" type="hidden">
                         <input value="<?= $row->id_mata_kuliah ;?>" name="id_mata_kuliah" type="hidden">
                       </td>
@@ -68,13 +68,13 @@
                         <td><?php echo $row['jumlah_pertemuan'] ;?></td>
                         <td><?php echo $row['jumlah_presensi'] ;?></td>
                         <td><?php echo $row['presentase']." %" ;?></td>
-                        <td><?php $persen = $row['presentase'];
+                        <?php $persen = $row['presentase'];
                               if ($persen > 74 ) {
-                                echo "LULUS";
+                                echo "<td>Memenuhi</td>";
                               }else{
-                                echo "TIDAK Lulus";
+                                echo "<td>TIDAK Lulus</td>";
                               }
-                               ?></td>
+                               ?>
                       </tr>
                     <?php } ?>
                     </tbody>
