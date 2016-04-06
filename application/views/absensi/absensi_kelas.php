@@ -26,11 +26,6 @@
                       <td><label><?php echo $row->mata_kuliah; ?></label></td>
                     </tr>
                     <tr>
-                      <td><label>Ruang</label></td>
-                      <td>:</td>
-                      <td><label><?php echo $row->ruang; ?></label></td>
-                    </tr>
-                    <tr>
                       <td><label>Hari</label></td>
                       <td>:</td>
                       <td><label><?php echo $row->hari; ?></label></td>
@@ -40,15 +35,10 @@
                       <td>:</td>
                       <td><label><?php echo $row->jam; ?></label></td>
                     </tr>
-                    <tr>
-                      <td><label>IP Address Fingerprint</label></td>
-                      <td>:</td>
-                      <td><label><?php echo $row->ip_address; ?></label></td>
-                    </tr>
                   </table>
                   </div>
                   <?php } ?>
-                  </br></br></br></br></br></br></br></br></br></br></br></br></br>
+                  </br></br></br></br></br></br></br></br>
                 <div style="overflow:auto;">
                   <table id="" class="table table-bordered table-striped">
                     <thead>
@@ -65,9 +55,16 @@
                       <tr>
                         <td><?php echo $row['nim']; ?></td>
                         <td><?php echo $row['nama_mahasiswa']; ?></td>
-                        <?php for($i=0; $i < count($row['status']) ; $i++) { ?>
-                        <td><?php echo $row['status'][$i];?></td>
-                        <?php } ?>
+                        <?php 
+                          for($i=0; $i < count($row['status']) ; $i++){
+                            $status = $row['status'][$i];
+                            if($status=='hadir'){
+                              echo "<td>".$status."</td>";
+                            }else{
+                              echo "<td style='color:red;'>".$status."</td>";
+                            }
+                          }
+                        ?>
                       </tr>
                     <?php } ?>
                     </tbody>

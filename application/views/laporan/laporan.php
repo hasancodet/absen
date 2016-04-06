@@ -23,7 +23,6 @@
                           <th>Semester</th>
                           <th>Mata Kuliah</th>
                           <th>Nama Dosen</th>
-                          <th>Ruang</th>
                           <th>Hari</th>
                           <th>Jam</th>
                           <th>detail</th>
@@ -35,11 +34,10 @@
                           <td><?= $row->semester ;?> </td>
                           <td><?= $row->mata_kuliah ;?> </td>
                           <td><?= $row->nama_dosen ;?></td>
-                          <td><?= $row->ruang ;?></td>
                           <td><?= $row->hari ;?></td>
                           <td><?= $row->jam ;?></td>
                           <td>
-                            <a href="<?= base_url().'home/LaporanKelas/'.$row->id_jadwal.'/'.$row->id_mata_kuliah;?>">Detail</a>
+                            <a href="<?= base_url().'home/LaporanKelas/'.$row->id_jadwal.'/'.$row->id_mata_kuliah;?>"><button class="btn btn-primary btn-sm">Print</button></a>
                           </td>
                           </tr>
                       <?php } ?>

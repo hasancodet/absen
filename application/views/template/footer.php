@@ -27,6 +27,11 @@
     <script src="<?php echo base_url().'asset/AdminLTE/dist/js/app.min.js';?>"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo base_url().'asset/AdminLTE/dist/js/demo.js';?>"></script>
+    <!--Inputmask-->
+    <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.js';?>"></script>
+    <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js';?>"></script>
+    
+
     
     <!-- jQuery UI 1.11.4 -->
     <!-- // <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
@@ -36,6 +41,9 @@
     <script>
       $(function () {
         $("#example1").DataTable();
+        $("#example3").DataTable({
+          "order": [[ 0, "desc" ]]
+        });
         $('#example2').DataTable({
           "paging": true,
           "lengthChange": false,
@@ -58,6 +66,40 @@
               $(e.currentTarget).find('input[name="id_jadwal"]').val(id_jadwal);
               var id_mata_kuliah = $(e.relatedTarget).data('id_mata_kuliah');
               $(e.currentTarget).find('input[name="id_mata_kuliah"]').val(id_mata_kuliah);
+              });
+    </script>
+    <script type="text/javascript">
+      $('#bukaKelas').on('shown.bs.modal', function(e) {
+              var id_absensi = $(e.relatedTarget).data('id_absensi');
+              $(e.currentTarget).find('input[name="id_absensi"]').val(id_absensi);
+              var id_jadwal = $(e.relatedTarget).data('id_jadwal');
+              $(e.currentTarget).find('input[name="id_jadwal"]').val(id_jadwal);
+              var status = $(e.relatedTarget).data('status');
+              $(e.currentTarget).find('input[name="status"]').val(status);
+              var id_mata_kuliah = $(e.relatedTarget).data('id_mata_kuliah');
+              $(e.currentTarget).find('input[name="id_mata_kuliah"]').val(id_mata_kuliah);
+              });
+    </script>
+    <script type="text/javascript">
+      $('#tutupKelas').on('shown.bs.modal', function(e) {
+              var id_absensi = $(e.relatedTarget).data('id_absensi');
+              $(e.currentTarget).find('input[name="id_absensi"]').val(id_absensi);
+              var id_jadwal = $(e.relatedTarget).data('id_jadwal');
+              $(e.currentTarget).find('input[name="id_jadwal"]').val(id_jadwal);
+              var status = $(e.relatedTarget).data('status');
+              $(e.currentTarget).find('input[name="status"]').val(status);
+              var id_mata_kuliah = $(e.relatedTarget).data('id_mata_kuliah');
+              $(e.currentTarget).find('input[name="id_mata_kuliah"]').val(id_mata_kuliah);
+              });
+    </script>
+    <script type="text/javascript">
+      $('#editRuang').on('shown.bs.modal', function(e) {
+              var id_ruang = $(e.relatedTarget).data('id_ruang');
+              $(e.currentTarget).find('input[name="id_ruang"]').val(id_ruang);
+              var nama_ruang = $(e.relatedTarget).data('nama_ruang');
+              $(e.currentTarget).find('input[name="nama_ruang"]').val(nama_ruang);
+              var ip_address = $(e.relatedTarget).data('ip_address');
+              $(e.currentTarget).find('input[name="ip_address"]').val(ip_address);
               });
     </script>
   </body>

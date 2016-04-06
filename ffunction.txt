@@ -1,0 +1,16 @@
+login  :- login
+		- logout
+
+home   :- index
+		- jadwalHariIni
+		- jadwal
+		- laporan
+		- jadwalKelas
+		- absenKelas
+		- laporanKelas
+
+ortu   :- index
+		- tampilAbsensi
+
+printt :- printLaporan
+

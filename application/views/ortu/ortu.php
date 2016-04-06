@@ -29,6 +29,7 @@
   </head>
 
   <body>
+  <?php error_reporting(0);?>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -47,19 +48,63 @@
           <img style="width: 200px; height: 250px;" class="img-thumbnail" src="<?php echo base_url().'asset/AdminLTE/dist/img/user2-160x160.jpg';?>">
         </div>
         <div class="col-md-4">
+          <h3>Profil Mahasiswa</h3>
           <table class="table">
+            <?php foreach ($profilMahasiswa->result_array() as $row) { ?>
+              <tr>
+                <td>NIM</td>
+                <td>:</td>
+                <td><?= $row['nim']; ?></td>
+              </tr>
               <tr>
                 <td>Nama</td>
                 <td>:</td>
-                <td><?php 
-                      print_r($absensiMahasiswa[0]['nama_mahasiswa']);
-                    ?>
-                </td>
+                <td><?= $row['nama_mahasiswa']; ?></td>
               </tr>
+              <tr>
+                <td>Alamat</td>
+                <td>:</td>
+                <td><?= $row['alamat']; ?></td>
+              </tr>
+              <tr>
+                <td>Jenis Kelamin</td>
+                <td>:</td>
+                <td><?= $row['jenis_kelamin']; ?></td>
+              </tr>
+              <tr>
+                <td>Jurusan</td>
+                <td>:</td>
+                <td><?= $row['jurusan']; ?></td>
+              </tr>
+            <?php }?>
+          </table>
+        </div>
+      
+        <div class="col-md-6">
+          <h3>Jadwal Kuliah Hari Ini</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Mata Kuliah</td>
+                <td>Jam Absensi</td>
+                <td>Status</td>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($absensiMahasiswaHariIni as $row) { ?>
+              <tr>
+                <td><?= $row['mata_kuliah'];?></td>
+                <td><?= $row['jam'];?></td>
+                <td><?= $row['status'];?></td>
+              </tr>
+              <?php } ?>
+            </tbody>
           </table>
         </div>
       </div>
+
       <br><br><br><br><br><br>
+      
       <div class="page-header">
         <h1>Daftar mata kuliah yang diambil</h1>
       </div>
@@ -81,7 +126,14 @@
               <tr>
                 <td><?= $i+1;?></td>
                 <td><?= $row['tanggal'][$i]; ?></td>
-                <td><?= $row['status'][$i]; ?></td>
+                <?php 
+                            $status = $row['status'][$i];
+                            if($status=='hadir'){
+                              echo "<td>".$status."</td>";
+                            }else{
+                              echo "<td style='color:red;'>".$status."</td>";
+                            }
+                        ?>
             </tr>
             <?php } ?>
             </tbody>

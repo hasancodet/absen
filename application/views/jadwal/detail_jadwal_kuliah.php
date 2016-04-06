@@ -26,11 +26,6 @@
                       <td><label><?php echo $row->mata_kuliah; ?></label></td>
                     </tr>
                     <tr>
-                      <td><label>Ruang</label></td>
-                      <td>:</td>
-                      <td><label><?php echo $row->ruang; ?></label></td>
-                    </tr>
-                    <tr>
                       <td><label>Hari</label></td>
                       <td>:</td>
                       <td><label><?php echo $row->hari; ?></label></td>
@@ -39,11 +34,6 @@
                       <td><label>Jam</label></td>
                       <td>:</td>
                       <td><label><?php echo $row->jam; ?></label></td>
-                    </tr>
-                    <tr>
-                      <td><label>IP Address Fingerprint</label></td>
-                      <td>:</td>
-                      <td><label><?php echo $row->ip_address; ?></label></td>
                     </tr>
                     <tr>
                       <td>

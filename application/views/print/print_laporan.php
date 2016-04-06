@@ -54,11 +54,6 @@
                     <td>:</td>
                     <td><label><?php echo $row->mata_kuliah; ?></label></td>
                   </tr>
-                  <tr>
-                    <td><label>Ruang</label></td>
-                    <td>:</td>
-                    <td><label><?php echo $row->ruang; ?></label></td>
-                  </tr>
                 </table>
               </div>
             <?php } ?>
@@ -84,20 +79,27 @@
                     <tr>
                       <td><?php echo $row['nim']; ?></td>
                       <td><?php echo $row['nama_mahasiswa']; ?></td>
-                      <?php for($i=0; $i < count($row['status']) ; $i++) { ?>
-                      <td><?php echo $row['status'][$i];?></td>
-                      <?php } ?>
+                      <?php 
+                          for($i=0; $i < count($row['status']) ; $i++){
+                            $status = $row['status'][$i];
+                            if($status=='hadir'){
+                              echo "<td>".$status."</td>";
+                            }else{
+                              echo "<td style='color:red;'>".$status."</td>";
+                            }
+                          }
+                        ?>
                       <td><?php echo $row['jumlah_pertemuan'] ;?></td>
                       <td><?php echo $row['jumlah_presensi'] ;?></td>
                       <td><?php echo $row['presentase']." %" ;?></td>
-                      <td><?php $persen = $row['presentase'];
-                            if ($persen > 74 ) {
-                              echo "MEMENUHI";
+                      <?php $persen = $row['presentase'];
+                            if ($persen > 75 ) {
+                              echo "<td>MEMENUHI</td>";
                             }else{
-                              echo "TIDAK MEMENUHI";
+                              echo "<td style='color:red'>TIDAK MEMENUHI</td>";
                             }
                              ?>
-                      </td>
+                      
                     </tr>
                     <?php } ?>
                   </tbody>

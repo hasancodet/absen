@@ -9,9 +9,9 @@ class Printt extends CI_Controller {
 
 		}
 
-	public function printLaporan(){
-		$id_mata_kuliah = $this->input->post('id_mata_kuliah');
-		$id_jadwal = $this->input->post('id_jadwal');
+	public function printLaporan($id_jadwal, $id_mata_kuliah){
+		// $id_mata_kuliah = $this->input->post('id_mata_kuliah');
+		// $id_jadwal = $this->input->post('id_jadwal');
 
 		$this->load->model('model_jadwal');
 		$this->load->model('model_absensi');

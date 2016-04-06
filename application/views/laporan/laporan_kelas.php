@@ -16,27 +16,16 @@
                   <h3 class="box-title">Detail Presensi Mahasiswa Per Tanggal</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                <?php foreach ($jadwal->result() as $row) { ?>
+                <?php foreach ($jadwal->result_array() as $row) { ?>
                   <div class="col-md-4">
                   <table class="table">
                     <tr>
                       <td><label>Mata Kuliah</label></td>
                       <td>:</td>
-                      <td><label><?php echo $row->mata_kuliah; ?></label></td>
+                      <td><label><?php echo $row['mata_kuliah']; ?></label></td>
                     </tr>
                     <tr>
-                      <td><label>Ruang</label></td>
-                      <td>:</td>
-                      <td><label><?php echo $row->ruang; ?></label></td>
-                    </tr>
-                    <tr>
-                    <form method="post" action="<?= base_url().'printt/printLaporan';?>" >
-                      <td>
-                        <button class="btn btn-primary" type="submit"><i class="fa fa-print"></i> Print</button>
-                        <input value="<?= $row->id_jadwal ;?>" name="id_jadwal" type="hidden">
-                        <input value="<?= $row->id_mata_kuliah ;?>" name="id_mata_kuliah" type="hidden">
-                      </td>
-                    </form>
+                      <td><a href="<?= base_url().'printt/printLaporan/'.$row['id_jadwal'].'/'.$row['id_mata_kuliah'];?>"><button class="btn btn-primary"><i class="fa fa-print"></i> Print</button></a></td>
                     </tr>
                   </table>
                   </div>
@@ -62,9 +51,16 @@
                       <tr>
                         <td><?php echo $row['nim']; ?></td>
                         <td><?php echo $row['nama_mahasiswa']; ?></td>
-                        <?php for($i=0; $i < count($row['status']) ; $i++) { ?>
-                        <td><?php echo $row['status'][$i];?></td>
-                        <?php } ?>
+                        <?php 
+                          for($i=0; $i < count($row['status']) ; $i++){
+                            $status = $row['status'][$i];
+                            if($status=='hadir'){
+                              echo "<td>".$status."</td>";
+                            }else{
+                              echo "<td style='color:red;'>".$status."</td>";
+                            }
+                          }
+                        ?>
                         <td><?php echo $row['jumlah_pertemuan'] ;?></td>
                         <td><?php echo $row['jumlah_presensi'] ;?></td>
                         <td><?php echo $row['presentase']." %" ;?></td>
@@ -72,7 +68,7 @@
                               if ($persen > 74 ) {
                                 echo "<td>Memenuhi</td>";
                               }else{
-                                echo "<td>TIDAK Lulus</td>";
+                                echo "<td style='color:red;'>Tidak Memenuhi</td>";
                               }
                                ?>
                       </tr>

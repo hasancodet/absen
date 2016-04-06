@@ -31,8 +31,10 @@ class Home extends CI_Controller {
 		else
 		{
 			$this->load->model('model_absensi');
+
 			$data['absen'] = $this->model_absensi->absenRealTime();
-			$this->load->view('template/header');
+			
+			$this->load->view('template/header', $akun);
 			$this->load->view('absen_real_time', $data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');
@@ -42,9 +44,11 @@ class Home extends CI_Controller {
 	//menampilkan daftar jadwal hari ini
 	public function JadwalHariIni(){
 		$this->load->model('model_jadwal');
+		$this->load->model('model_ruang');
 		
 		$data['jadwal'] = $this->model_jadwal->tampilJadwalHariIni();
-
+		$data['ruang'] = $this->model_ruang->ruang();
+		
 		$this->load->view('template/header');
 		$this->load->view('jadwal/jadwal_hari_ini',$data);
 		$this->load->view('template/sidebar');
@@ -65,25 +69,12 @@ class Home extends CI_Controller {
 	}
 	
 
-	//menampilkan jadwal kuliah , kebutuhannya untuk diedit absensi mahasiswa
-	public function jadwalEdit()
-	{
-		$this->load->model('model_jadwal');
-		//$this->load->model('model_absensi');
-
-		$data['jadwal'] = $this->model_jadwal->tampilJadwal();
-		
-		$this->load->view('template/header');
-		$this->load->view('jadwal/jadwal_edit', $data);
-		$this->load->view('template/sidebar');
-		$this->load->view('template/footer');
-	}
+	
 	
 	public function laporan()
 	{
 		$this->load->model('model_jadwal');
-		//$this->load->model('model_absensi');
-
+		
 		$data['jadwal'] = $this->model_jadwal->tampilJadwal();
 		
 		$this->load->view('template/header');
@@ -102,6 +93,7 @@ class Home extends CI_Controller {
 
 		$data['jadwal'] = $this->model_jadwal->detailJadwal($id_jadwal);
 		$jadwalMahasiswa = $this->model_jadwal->detailJadwalMahasiswa($id_jadwal);
+		
 		$i = 0;
 		foreach ($jadwalMahasiswa->result_array() as $row) {
 			$nim = $row['nim'];
@@ -204,6 +196,17 @@ class Home extends CI_Controller {
 		
 	}
 
+	public function ruang(){
+		$this->load->model('model_ruang');
+		
+		$data['ruang'] = $this->model_ruang->ruang();
+
+		$this->load->view('template/header');
+		$this->load->view('ruang/ruang',$data);
+		$this->load->view('template/sidebar');
+		$this->load->view('template/footer');
+	}
+
 	public function login(){
 		$this->load->view('login');
 	}
@@ -268,8 +271,24 @@ class Home extends CI_Controller {
 		$this->load->view('template/footer');	
 	}
 	*/
-	/*
-	//fungsi yang tidak jadi dipakai
+}
+?>
+
+<!--
+//fungsi yang tidak jadi dipakai
+//menampilkan jadwal kuliah , kebutuhannya untuk diedit absensi mahasiswa
+	public function jadwalEdit()
+	{
+		$this->load->model('model_jadwal');
+		
+		$data['jadwal'] = $this->model_jadwal->tampilJadwal();
+		
+		$this->load->view('template/header');
+		$this->load->view('jadwal/jadwal_edit', $data);
+		$this->load->view('template/sidebar');
+		$this->load->view('template/footer');
+	}
+
 	public function absenKelasEdit($id_jadwal, $id_mata_kuliah)
 	{
 
@@ -302,6 +321,5 @@ class Home extends CI_Controller {
 
 		// print_r($data['statusBerangkatMahasiswa']);
 		// die();		
-	}*/
-}
-?>
+	}
+-->
