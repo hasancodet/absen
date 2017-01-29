@@ -25,7 +25,7 @@
                           <th>Nama Dosen</th>
                           <th>Hari</th>
                           <th>Jam</th>
-                          <th>detail</th>
+                          <th>Detail</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -37,8 +37,9 @@
                           <td><?= $row->hari ;?></td>
                           <td><?= $row->jam ;?></td>
                           <td>
-                            <a href="<?= base_url().'home/LaporanKelas/'.$row->id_jadwal.'/'.$row->id_mata_kuliah;?>"><button class="btn btn-primary btn-sm">Print</button></a>
+                            <a href="<?= base_url().'home/LaporanKelas/'.$row->id_jadwal.'/'.$row->id_mata_kuliah;?>"><button class="btn btn-primary btn-sm">Cek Laporan</button></a> 
                           </td>
+                      
                           </tr>
                       <?php } ?>
                       </tbody>

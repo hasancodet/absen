@@ -7,7 +7,8 @@
 						WHERE absensi.id_jadwal_mahasiswa = jadwal_mahasiswa.id_jadwal_mahasiswa
 						AND jadwal_mahasiswa.nim = mahasiswa.nim
 						AND jadwal_mahasiswa.id_jadwal = jadwal.id_jadwal
-						AND mata_kuliah.id_mata_kuliah = jadwal.id_mata_kuliah";
+						AND mata_kuliah.id_mata_kuliah = jadwal.id_mata_kuliah
+						AND tanggal = CURDATE()";
 			$hasil = $this->db->query($query);
 			return $hasil;
 		}
@@ -47,6 +48,7 @@
 			$hasil = $this->db->query($query);
 			return $hasil;
 		}
+
 		public function hitungPertemuan($nim, $id_mata_kuliah){
 			$query = "SELECT count(id_absensi) as jumlah_pertemuan
 						from absensi, jadwal_mahasiswa, jadwal, mahasiswa, mata_kuliah
@@ -59,6 +61,7 @@
 			$hasil = $this->db->query($query);
 			return $hasil;	
 		}
+
 		public function tanggalKuliah($id_mata_kuliah){
 			$query = "SELECT distinct absensi.tanggal
 						FROM absensi, jadwal_mahasiswa, jadwal
@@ -68,6 +71,7 @@
 			$hasil = $this->db->query($query);
 			return $hasil;
 		}
+
 		public function statusBerangkat($nim, $id_mata_kuliah){
 			$query = "SELECT id_absensi,jadwal_mahasiswa.nim, mahasiswa.nama_mahasiswa, tanggal, status
 						from absensi, jadwal_mahasiswa, jadwal, mahasiswa
@@ -79,6 +83,27 @@
 			$hasil = $this->db->query($query);
 			return $hasil;
 		}
+
+		public function lihatJadwal($id_jadwal){
+			$query = "SELECT id_jadwal_mahasiswa 
+						from jadwal_mahasiswa 
+						where id_jadwal = $id_jadwal";
+			$hasil = $this->db->query($query);
+			return $hasil; 
+		}
+
+		public function absenMahasiswa($nim , $id_ruang){
+			$query = "SELECT id_absensi
+						FROM absensi, jadwal_mahasiswa
+						WHERE jadwal_mahasiswa.id_jadwal_mahasiswa = absensi.id_jadwal_mahasiswa
+						AND nim = $nim
+						AND id_ruang = $id_ruang
+						AND status = 'tidak hadir'
+						AND status_kelas = 'buka'" ;
+			$hasil = $this->db->query($query);
+			return $hasil;
+		}
+
 		public function editAbsensi($id_absensi, $status){
 			$this->db->update('absensi', $status, "id_absensi = $id_absensi" );
 		}

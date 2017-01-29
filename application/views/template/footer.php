@@ -102,5 +102,26 @@
               $(e.currentTarget).find('input[name="ip_address"]').val(ip_address);
               });
     </script>
+    <script type="text/javascript">
+      // function get_fb_success(){
+      //   $('#log_success').append('<li>get_fb() ran</li>');
+      //   var feedback = $.ajax({
+      //       type: "POST",
+      //       url: "feedback.php",
+      //       async: false
+      //   }).success(function(){
+      //       setTimeout(function(){get_fb_success();}, 10000);
+      //   }).responseText;
+
+      //   $('div.feedback-box-success').html('success feedback');
+      // }
+      // $('#example3').dataTable( {
+      //   "ajax": {
+      //   "url": "<?php echo base_url('home/index');?>",
+      //   "dataSrc": "tableData"
+      //   }
+      // } );
+
+    </script>
   </body>
 </html>

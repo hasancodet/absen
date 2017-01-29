@@ -25,12 +25,22 @@
                       <td><label><?php echo $row['mata_kuliah']; ?></label></td>
                     </tr>
                     <tr>
+                      <td><label>Hari</label></td>
+                      <td>:</td>
+                      <td><label><?php echo $row['hari']; ?></label></td>
+                    </tr>
+                    <tr>
+                      <td><label>Jam</label></td>
+                      <td>:</td>
+                      <td><label><?php echo $row['jam']; ?></label></td>
+                    </tr>
+                    <tr>
                       <td><a href="<?= base_url().'printt/printLaporan/'.$row['id_jadwal'].'/'.$row['id_mata_kuliah'];?>"><button class="btn btn-primary"><i class="fa fa-print"></i> Print</button></a></td>
                     </tr>
                   </table>
                   </div>
                   <?php } ?>
-                  </br></br></br></br></br></br></br></br>
+                  </br></br></br></br></br></br></br></br></br></br></br>
                 <div style="overflow:auto;">
                   <table id="" class="table table-bordered table-striped">
                     <thead>

@@ -16,7 +16,7 @@
                 <div class="box-header">
                   <h3 class="box-title">Daftar Ruang Kelas</h3>
                   <br>
-                  <h3><button class="btn btn-primary">Tambah Kelas</button></h3>
+                  <h3><button class="btn btn-primary" data-target="#tambahRuang" data-toggle="modal">Tambah Ruang</button></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -57,7 +57,7 @@
               <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Tutup"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Buka Kelas</h4>
+                      <h4 class="modal-title">Buka Ruang</h4>
                   </div>
                   <form method="post" action="<?= base_url().'ruang/editRuang';?>" >
                   <div class="modal-body">
@@ -69,6 +69,28 @@
                   </div>
                   <div class="modal-footer">
                       <button type="submit" class="btn btn-primary">Edit</button>
+                  </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div class="modal fade" id="tambahRuang" role="dialog">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Tutup"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Tambah Ruang</h4>
+                  </div>
+                  <form method="post" action="<?= base_url().'ruang/tambahRuang';?>" >
+                  <div class="modal-body">
+                      <div class="form-group">
+                        <!-- <input class="form-control" name="id_ruang" > -->
+                        <span>Nama Ruang</span><input class="form-control" name="nama_ruang">
+                        <span>IP Address</span><input class="form-control" name="ip_address">  
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Tambah</button>
                   </div>
                   </form>
               </div>
