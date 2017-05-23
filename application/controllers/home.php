@@ -42,7 +42,6 @@ class Home extends CI_Controller {
 	}
 	
 	//menampilkan daftar jadwal hari ini
-
 	public function JadwalHariIni(){
 		$akun = $this->session->userdata('akun');
 		if($akun['login'] == FALSE)
@@ -57,7 +56,7 @@ class Home extends CI_Controller {
 			$data['jadwal'] = $this->model_jadwal->tampilJadwalHariIni();
 			$data['ruang'] = $this->model_ruang->ruang();
 			
-			$this->load->view('template/header');
+			$this->load->view('template/header', $akun);
 			$this->load->view('jadwal/jadwal_hari_ini',$data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');
@@ -77,7 +76,7 @@ class Home extends CI_Controller {
 			
 			$data['jadwal'] = $this->model_jadwal->tampilJadwal();
 			
-			$this->load->view('template/header');
+			$this->load->view('template/header', $akun);
 			$this->load->view('jadwal/jadwal_kuliah', $data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');	
@@ -98,7 +97,7 @@ class Home extends CI_Controller {
 			
 			$data['jadwal'] = $this->model_jadwal->tampilJadwal();
 			
-			$this->load->view('template/header');
+			$this->load->view('template/header', $akun);
 			$this->load->view('laporan/laporan', $data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');	
@@ -140,7 +139,7 @@ class Home extends CI_Controller {
 				$i++;
 
 			}
-			$this->load->view('template/header');
+			$this->load->view('template/header', $akun);
 			$this->load->view('jadwal/detail_jadwal_kuliah',$data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');
@@ -178,7 +177,7 @@ class Home extends CI_Controller {
 			}
 			$data['tanggal'] = $this->model_absensi->tanggalKuliah($id_mata_kuliah);
 			$data['jadwal'] = $this->model_jadwal->detailJadwal($id_jadwal);
-			$this->load->view('template/header');
+			$this->load->view('template/header', $akun);
 			$this->load->view('absensi/absensi_kelas', $data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');
@@ -230,7 +229,7 @@ class Home extends CI_Controller {
 			}
 			$data['tanggal'] = $this->model_absensi->tanggalKuliah($id_mata_kuliah);
 			
-			$this->load->view('template/header');
+			$this->load->view('template/header', $akun);
 			$this->load->view('laporan/laporan_kelas', $data);
 			$this->load->view('template/sidebar');
 			$this->load->view('template/footer');

@@ -54,6 +54,16 @@
                     <td>:</td>
                     <td><label><?php echo $row->mata_kuliah; ?></label></td>
                   </tr>
+                  <tr>
+                    <td><label>Hari</label></td>
+                    <td>:</td>
+                    <td><label><?php echo $row->hari; ?></label></td>
+                  </tr>
+                  <tr>
+                    <td><label>Jam</label></td>
+                    <td>:</td>
+                    <td><label><?php echo $row->jam; ?></label></td>
+                  </tr>
                 </table>
               </div>
             <?php } ?>
