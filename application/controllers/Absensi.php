@@ -8,6 +8,34 @@ class Absensi extends CI_Controller {
 			parent::__construct();
 		}
 
+	public function reload(){
+		header('Refresh: 10.2');
+		$hasil = $this->db->query("SELECT DISTINCT ip_address
+									FROM absensi, ruang
+									WHERE absensi.id_ruang = ruang.id_ruang");
+		foreach ($hasil->result_array() as $row){
+			$ip_address = $row['ip_address'];
+			// echo $ip_address;
+			$this->tarikData($ip_address);
+		}
+	}
+	public function tarikData($ip_address){
+		$xml = simplexml_load_file('http://'.$ip_address.":8080/fp/daftar_absen.xml");	 
+			foreach($xml->children() as $child){  
+				$id = $child->id;
+				$nim = $child->PIN;
+				$waktu = $child->waktu;
+				$tanggal = $child->tanggal;
+				echo $nim." , ".$tanggal." , ".$waktu."<br>";
+		    	$query = $this->db->query("SELECT id_absensi FROM absensi, jadwal_mahasiswa WHERE jadwal_mahasiswa.id_jadwal_mahasiswa = absensi.id_jadwal_mahasiswa AND jadwal_mahasiswa.nim = $nim  AND absensi.jam is null");
+		    	foreach ($query->result_array() as $row) {
+		    		$id_absensi = $row['id_absensi'];
+		    		$data = array(	'status' =>'hadir' ,
+		    						'jam'=>$waktu );
+		    		$this->db->update('absensi', $data,"id_absensi='$id_absensi'");
+		    	} 
+			}
+	}
 	public function isiAbsensi(){
 		$tanggal = date('Y-n-j');
 		$this->load->model('model_absensi');
@@ -28,6 +56,7 @@ class Absensi extends CI_Controller {
 	}
 
 	public function bukaKelas(){
+		date_default_timezone_set('Asia/Jakarta');
 		$id_jadwal = $this->input->post('id_jadwal');
 		$id_ruang = $this->input->post('id_ruang');
 		
@@ -80,39 +109,38 @@ class Absensi extends CI_Controller {
 		redirect(base_url().'ortu/absensiMahasiswa');
 	}
 
-	public function tarikData(){
-		$IP  ="192.168.1.201";
-		$id  = "All";
-		$key = 0;
-		$Connect = fsockopen($IP, "80", $errno, $errstr, 1);
-		if($Connect){
-			$soap_request="<GetAttLog><ArgComKey xsi:type=\'xsd:integer\'>".$Key."</ArgComKey><Arg><PIN xsi:type=\'xsd:integer\'>".$id."</PIN></Arg></GetAttLog>";
-			$newLine="\r\n";
-			fputs($Connect, "POST /iWsService HTTP/1.0".$newLine);
-		    fputs($Connect, "Content-Type: text/xml".$newLine);
-		    fputs($Connect, "Content-Length: ".strlen($soap_request).$newLine.$newLine);
-		    fputs($Connect, $soap_request.$newLine);
-			$buffer="";
-			while($Response=fgets($Connect, 1024)){
-				$buffer=$buffer.$Response;
-			}
-		}else echo "Koneksi Gagal";
+	// public function tarikData(){
+	// 	$IP  ="192.168.1.201";
+	// 	$id  = "All";
+	// 	$key = 0;
+	// 	$Connect = fsockopen($IP, "80", $errno, $errstr, 1);
+	// 	if($Connect){
+	// 		$soap_request="<GetAttLog><ArgComKey xsi:type=\'xsd:integer\'>".$Key."</ArgComKey><Arg><PIN xsi:type=\'xsd:integer\'>".$id."</PIN></Arg></GetAttLog>";
+	// 		$newLine="\r\n";
+	// 		fputs($Connect, "POST /iWsService HTTP/1.0".$newLine);
+	// 	    fputs($Connect, "Content-Type: text/xml".$newLine);
+	// 	    fputs($Connect, "Content-Length: ".strlen($soap_request).$newLine.$newLine);
+	// 	    fputs($Connect, $soap_request.$newLine);
+	// 		$buffer="";
+	// 		while($Response=fgets($Connect, 1024)){
+	// 			$buffer=$buffer.$Response;
+	// 		}
+	// 	}else echo "Koneksi Gagal";
 
-		include(" parse.php");
-		$buffer=Parse_Data($buffer,"<GetAttLogResponse>","</GetAttLogResponse>");
-		$buffer=explode("\r\n",$buffer);
-		for($a=0;$a<count($buffer);$a++){
-			$data=Parse_Data($buffer[$a],"<Row>","</Row>");
-			$PIN=Parse_Data($data,"<PIN>","</PIN>");
-			$DateTime=Parse_Data($data,"<DateTime>","</DateTime>");
-			$Verified=Parse_Data($data,"<Verified>","</Verified>");
-			$Status=Parse_Data($data,"<Status>","</Status>");
-			$info[$a] = array('PIN'=>$PIN , 'DateTime'=> $DateTime, 'Verified'=>$Verified, 'Status'=>$Status );
-		}
-	} 
+	// 	include(" parse.php");
+	// 	$buffer=Parse_Data($buffer,"<GetAttLogResponse>","</GetAttLogResponse>");
+	// 	$buffer=explode("\r\n",$buffer);
+	// 	for($a=0;$a<count($buffer);$a++){
+	// 		$data=Parse_Data($buffer[$a],"<Row>","</Row>");
+	// 		$PIN=Parse_Data($data,"<PIN>","</PIN>");
+	// 		$DateTime=Parse_Data($data,"<DateTime>","</DateTime>");
+	// 		$Verified=Parse_Data($data,"<Verified>","</Verified>");
+	// 		$Status=Parse_Data($data,"<Status>","</Status>");
+	// 		$info[$a] = array('PIN'=>$PIN , 'DateTime'=> $DateTime, 'Verified'=>$Verified, 'Status'=>$Status );
+	// 	}
+	// } 
 }
 ?>
->
 
 <!--
 fungsi yang tidak jadi dipakai

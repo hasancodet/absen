@@ -3,10 +3,10 @@
       <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-          Anything you want
+          RizalBrother
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+        <strong><a href="#"></a>.</strong>
       </footer>
       
     </div>
@@ -102,6 +102,20 @@
               $(e.currentTarget).find('input[name="ip_address"]').val(ip_address);
               });
     </script>
+    <script type="text/javascript">
+      setInterval(auto_refresh_function, 5000);
+        function auto_refresh_function() {
+          $('#realtime').load('m.google.com');
+        }
+    </script>
+    <script>
+      var myVar = setInterval(myTimer, 500);
+
+      function myTimer() {
+          var d = new Date();
+          document.getElementById("jam").innerHTML = d.toLocaleTimeString();
+      }
+</script>
     <script type="text/javascript">
       // function get_fb_success(){
       //   $('#log_success').append('<li>get_fb() ran</li>');

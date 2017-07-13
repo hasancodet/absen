@@ -35,6 +35,8 @@ class Ruang extends CI_Controller {
         		'ip_address' => $ip_address
 			);
 			$this->db->insert('ruang', $data);
+
+			redirect(base_url().'home/ruang');
 		}
 } 
 

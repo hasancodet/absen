@@ -57,14 +57,14 @@
               <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Tutup"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Buka Ruang</h4>
+                      <h4 class="modal-title">Edit Ruang</h4>
                   </div>
                   <form method="post" action="<?= base_url().'ruang/editRuang';?>" >
                   <div class="modal-body">
                       <div class="form-group">
-                        <input class="form-control" name="id_ruang" >
-                        <input class="form-control" name="nama_ruang">
-                        <input class="form-control" name="ip_address">  
+                        <input class="form-control" name="id_ruang" type="hidden">
+                        <span>Nama Ruang</span><input class="form-control" name="nama_ruang">
+                        <span>IP Address</span><input class="form-control" name="ip_address">  
                       </div>
                   </div>
                   <div class="modal-footer">

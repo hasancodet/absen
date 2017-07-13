@@ -66,7 +66,7 @@
                   <form method="post" action="<?= base_url().'absensi/bukaKelas';?>" >
                   <div class="modal-body">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Status</label>
+                        <label class="col-sm-3 control-label">Pilih Ruang</label>
                         <div class="col-sm-4">
                           <select class="form-control input-sm" name="id_ruang">
                             <?php foreach ($ruang->result_array() as $row) { ?>
@@ -74,8 +74,8 @@
                             <?php }?>
                           </select>
                         </div>
-                        <input class="form-control" name="id_jadwal" >
-                        <input class="form-control" name="id_mata_kuliah" >  
+                        <input class="form-control" name="id_jadwal" type="hidden">
+                        <input class="form-control" name="id_mata_kuliah" type="hidden">  
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -95,8 +95,9 @@
                   <form method="post" action="<?= base_url().'absensi/tutupKelas';?>" >
                   <div class="modal-body">
                       <div class="form-group">
-                        <input class="form-control" name="id_jadwal" >
-                        <input class="form-control" name="id_mata_kuliah" >  
+                        <input class="form-control" value="SV 103">
+                        <input class="form-control" name="id_jadwal" type="hidden" >
+                        <input class="form-control" name="id_mata_kuliah" type="hidden">  
                       </div>
                   </div>
                   <div class="modal-footer">

@@ -23,6 +23,7 @@ class Home extends CI_Controller {
 	//menampilkan presensi mahasiswa secara realtime
 	public function index()
 	{
+		header('Refresh: 10.2');
 		$akun = $this->session->userdata('akun');
 		if($akun['login'] == FALSE)
 		{

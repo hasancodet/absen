@@ -10,11 +10,11 @@
         
         <!-- Main content -->
         <section class="content">
-          <div class="row">
+          <div class="row" id="realtime">
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Absensi real time <?php date_default_timezone_set('Asia/Jakarta'); echo date("H:i:s");?></h3>
+                  <h3 class="box-title">Absensi real time <div id="jam"></div ></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example3" class="table table-bordered table-striped">
@@ -27,7 +27,7 @@
                         <th>Jam</th>
                         <th>Status</th>
                       </tr>
-                    </thead>
+                    </thead>  
                     <tbody>
                       <?php foreach ($absen->result_array() as $row) { ?>
                       <tr>

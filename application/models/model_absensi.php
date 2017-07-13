@@ -67,7 +67,8 @@
 						FROM absensi, jadwal_mahasiswa, jadwal
 						WHERE absensi.id_jadwal_mahasiswa = jadwal_mahasiswa.id_jadwal_mahasiswa
 						AND jadwal_mahasiswa.id_jadwal = jadwal.id_jadwal
-						AND id_mata_kuliah = $id_mata_kuliah";
+						AND id_mata_kuliah = $id_mata_kuliah
+						order by tanggal";
 			$hasil = $this->db->query($query);
 			return $hasil;
 		}
@@ -79,7 +80,8 @@
 						and jadwal_mahasiswa.id_jadwal = jadwal.id_jadwal
 						and jadwal_mahasiswa.nim = mahasiswa.nim
 						and jadwal.id_mata_kuliah = $id_mata_kuliah
-						and jadwal_mahasiswa.nim = $nim";
+						and jadwal_mahasiswa.nim = $nim
+						order by tanggal";
 			$hasil = $this->db->query($query);
 			return $hasil;
 		}
