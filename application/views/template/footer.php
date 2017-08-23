@@ -30,6 +30,10 @@
     <!--Inputmask-->
     <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.js';?>"></script>
     <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js';?>"></script>
+    <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.regex.extensions.js';?>"></script>
+    <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.numeric.extensions.js';?>"></script>
+    <script src="<?php echo base_url().'asset/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js';?>"></script>
+    <script src="<?php echo base_url().'asset/AdminLTE/plugins/select2/select2.full.js';?>"></script>
     
 
     
@@ -74,6 +78,7 @@
               $(e.currentTarget).find('input[name="id_absensi"]').val(id_absensi);
               var id_jadwal = $(e.relatedTarget).data('id_jadwal');
               $(e.currentTarget).find('input[name="id_jadwal"]').val(id_jadwal);
+              // $(e.currentTarget).find('button[name="id_jadwal"]').val(id_jadwal);
               var status = $(e.relatedTarget).data('status');
               $(e.currentTarget).find('input[name="status"]').val(status);
               var id_mata_kuliah = $(e.relatedTarget).data('id_mata_kuliah');
@@ -102,20 +107,49 @@
               $(e.currentTarget).find('input[name="ip_address"]').val(ip_address);
               });
     </script>
+    <!--Untuk mengecek IP address -->
     <script type="text/javascript">
-      setInterval(auto_refresh_function, 5000);
-        function auto_refresh_function() {
-          $('#realtime').load('m.google.com');
-        }
+      $(document).ready(function(){
+        $("#inputmask").inputmask("ip");
+        $("#inputmask1").inputmask("ip");
+      });
     </script>
-    <script>
-      var myVar = setInterval(myTimer, 500);
+    <script type="text/javascript">
+    // $("#idRuang").on('change', function(){
+    //   $("#ruangTutup").val($(this).val());
+    // });
+    </script>
+    <script type="text/javascript">
+      // $('.btnTutupKelas').on('click',function()){
+      //   var id_jadwal = $
+      // });
+    </script>
+    <script type="text/javascript">
+      // $( window ).load(function() {
+      //   function setupRefresh() {
+      //     setTimeout("refreshPage();", 10000);
+      //   }
+      //   function refreshPage() {
+      //     window.location.href = <?= base_url().'Absensi/reload';?>;
+      // } 
+        // });
 
-      function myTimer() {
-          var d = new Date();
-          document.getElementById("jam").innerHTML = d.toLocaleTimeString();
-      }
-</script>
+      
+    </script>
+    <script type="text/javascript">
+    //   setInterval(auto_refresh_function, 5000);
+    //     function auto_refresh_function() {
+    //       $('#realtime').load('m.google.com');
+    //     }
+    // </script>
+    <script>
+    //   var myVar = setInterval(myTimer, 500);
+
+    //   function myTimer() {
+    //       var d = new Date();
+    //       document.getElementById("jam").innerHTML = d.toLocaleTimeString();
+    //   }
+    // </script>
     <script type="text/javascript">
       // function get_fb_success(){
       //   $('#log_success').append('<li>get_fb() ran</li>');

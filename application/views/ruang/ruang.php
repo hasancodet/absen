@@ -63,8 +63,8 @@
                   <div class="modal-body">
                       <div class="form-group">
                         <input class="form-control" name="id_ruang" type="hidden">
-                        <span>Nama Ruang</span><input class="form-control" name="nama_ruang">
-                        <span>IP Address</span><input class="form-control" name="ip_address">  
+                        <span>Nama Ruang</span><input class="form-control" name="nama_ruang" required>
+                        <span>IP Address</span><input class="form-control" name="ip_address" id="inputmask" required>  
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -85,8 +85,8 @@
                   <div class="modal-body">
                       <div class="form-group">
                         <!-- <input class="form-control" name="id_ruang" > -->
-                        <span>Nama Ruang</span><input class="form-control" name="nama_ruang">
-                        <span>IP Address</span><input class="form-control" name="ip_address">  
+                        <span>Nama Ruang</span><input class="form-control" name="nama_ruang" required>
+                        <span>IP Address</span><input class="form-control" name="ip_address" id="inputmask1" required>  
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -96,3 +96,5 @@
               </div>
           </div>
       </div>
+
+      <!-- <input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask=""> -->

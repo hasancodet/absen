@@ -19,6 +19,7 @@
                       <button class="btn btn-primary pull-right" type="submit">Buka Kelas</button>
                   </form> -->
                 </div><!-- /.box-header -->
+                <?php echo $this->session->flashdata('message_name');?>
                 <div class="box-body">
                     <table id="example1" class="table table-bordered table-striped">
                       <thead>
@@ -38,7 +39,7 @@
                           <td><?= $row['nama_dosen'] ;?></td>
                           <td><?= $row['hari'] ;?></td>
                           <td>
-                            <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#bukaKelas'
+                            <button class='btn btn-primary btn-sm btnBuka' data-toggle='modal' data-target='#bukaKelas'
                               data-id_mata_kuliah='<?php echo $row['id_mata_kuliah']; ?>'
                               data-id_jadwal='<?php echo $row['id_jadwal']; ?>'>Buka Kelas</button> 
                             <button class='btn btn-danger btn-sm'data-toggle='modal' data-target='#tutupKelas'
@@ -63,12 +64,12 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Tutup"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title">Buka Kelas</h4>
                   </div>
-                  <form method="post" action="<?= base_url().'absensi/bukaKelas';?>" >
+                  <form method="post" action="<?= base_url().'Absensi/bukaKelas';?>" >
                   <div class="modal-body">
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Pilih Ruang</label>
                         <div class="col-sm-4">
-                          <select class="form-control input-sm" name="id_ruang">
+                          <select class="form-control input-sm" name="id_ruang" id="idRuang">
                             <?php foreach ($ruang->result_array() as $row) { ?>
                               <option value="<?= $row['id_ruang'];?>"><?= $row['nama_ruang'];?></option>
                             <?php }?>
@@ -79,7 +80,7 @@
                       </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Buka Kelas</button>
+                      <button type="submit" class="btn btn-primary btnBukaKelas">Buka Kelas</button>
                   </div>
                   </form>
               </div>
@@ -95,13 +96,13 @@
                   <form method="post" action="<?= base_url().'absensi/tutupKelas';?>" >
                   <div class="modal-body">
                       <div class="form-group">
-                        <input class="form-control" value="SV 103">
-                        <input class="form-control" name="id_jadwal" type="hidden" >
-                        <input class="form-control" name="id_mata_kuliah" type="hidden">  
+                        <input class="form-control" id="ruangTutup" value="">
+                        <input class="form-control" name="id_jadwal" id="ruangTutup">
+                        <input class="form-control" name="id_mata_kuliah">  
                       </div>
                   </div>
                   <div class="modal-footer">
-                      <button type="submit" class="btn btn-danger">Tutup Kelas</button>
+                      <button type="submit" class="btn btn-danger btnTutupKelas">Tutup Kelas</button>
                   </div>
                   </form>
               </div>

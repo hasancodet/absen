@@ -43,7 +43,7 @@
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
-        <div id="load_content">
+        <!-- <div id="load_content">
           loading
-        </div>
+        </div> -->
       </aside>

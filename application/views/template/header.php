@@ -26,6 +26,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Data Tables -->
     <link rel="stylesheet" href="<?php echo base_url().'asset/AdminLTE/plugins/datatables/datatables.bootstrap.css';?>">
 
+    <link rel="stylesheet" href="<?php echo base_url().'asset/AdminLTE/plugins/select2/select2.css';?>">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

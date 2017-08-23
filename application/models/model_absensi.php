@@ -94,6 +94,16 @@
 			return $hasil; 
 		}
 
+		public function lihatJadwalTutup($id_jadwal){
+			$query = "SELECT id_absensi
+						FROM absensi, jadwal_mahasiswa
+						WHERE absensi.id_jadwal_mahasiswa = jadwal_mahasiswa.id_jadwal_mahasiswa
+						AND id_jadwal = $id_jadwal
+						AND tanggal = (SELECT CURDATE()) ";
+			$hasil = $this->db->query($query);
+			return $hasil; 
+		}
+
 		public function absenMahasiswa($nim , $id_ruang){
 			$query = "SELECT id_absensi
 						FROM absensi, jadwal_mahasiswa

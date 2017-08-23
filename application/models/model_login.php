@@ -3,9 +3,9 @@
 	class Model_login extends CI_Model{
 		
 		public function cek_user($username, $password){
-			 $sql = " SELECT * from user where username = '".$username."' and password = '".$password."'";
-			//$sql = 'SELECT * from user where username = "'.$username.'" and password = "'.$password'"';
-			$hasil = $this->db->query($sql);
+			$this->db->where('username', $username);
+			$this->db->where('password', md5($password));
+			$hasil =$this->db->get("user");
 			if ($hasil->num_rows() == 1){
 				foreach ($hasil->result() as $user) {
 					$data = array('username'=> $user->username , 'password'=>$user->password,'login'=>TRUE);

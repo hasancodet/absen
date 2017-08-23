@@ -257,7 +257,7 @@ class Home extends CI_Controller {
 	}
 
 	public function login(){
-		$this->load->view('login');
+			$this->load->view('login');
 	}
 
 	//fungsi coba-coba
@@ -271,7 +271,7 @@ class Home extends CI_Controller {
 			$jajall = $row['id_absensi']." ";
 			print_r($jajall);
 		}
-		die();
+		// die();
 		$this->load->view('jajal/jajal',$data);	
 	}
 

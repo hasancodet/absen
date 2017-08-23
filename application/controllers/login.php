@@ -30,6 +30,8 @@ class Login extends CI_Controller {
 					redirect(base_url().'home/index');
 				}
 				else{
+					$this->session->set_flashdata('message_name', "<p style='color:white' class='alert alert-danger alert-dismissable'>Username dan password tidak cocok
+						<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button></p>");
 					redirect(base_url().'home/login');
 				}
 			}

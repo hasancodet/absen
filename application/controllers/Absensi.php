@@ -6,35 +6,80 @@ class Absensi extends CI_Controller {
 	public function __construct()
 		{
 			parent::__construct();
+			date_default_timezone_set('Asia/Jakarta');
 		}
 
 	public function reload(){
-		header('Refresh: 10.2');
+		header('Refresh:10');
 		$hasil = $this->db->query("SELECT DISTINCT ip_address
 									FROM absensi, ruang
 									WHERE absensi.id_ruang = ruang.id_ruang");
-		foreach ($hasil->result_array() as $row){
-			$ip_address = $row['ip_address'];
-			// echo $ip_address;
-			$this->tarikData($ip_address);
+		if($hasil->num_rows() == 0){
+			$this->load->view('jajal/jajal');
+
+		}else{
+			$this->load->library('fingerprint');
+			foreach ($hasil->result_array() as $row){
+				$ip_address = $row['ip_address'];
+				$this->fingerprint->tarikDataa($ip_address);
+			}
 		}
 	}
-	public function tarikData($ip_address){
-		$xml = simplexml_load_file('http://'.$ip_address.":8080/fp/daftar_absen.xml");	 
+	public function tarikData(){
+		header('Refresh:5');
+		$this->load->library('fingerprint');
+		// $xml = simplexml_load_file('http://'.$ip_address.":8080/fp/daftar_absen.xml");	 
+		$xml = simplexml_load_file('http://localhost/fp/daftar_absen.xml');
+		// $this->load->view('jajal/jajal', $xml);
+		$list = $xml->xpath('row');
+		if (count($list)==0){
+			// echo count($list);
+			// print_r($xml);
+
+			$this->load->view('jajal/jajal');
+			// redirect('absensi/tarikData');
+		}else{
+			$link=array();
+
 			foreach($xml->children() as $child){  
 				$id = $child->id;
 				$nim = $child->PIN;
 				$waktu = $child->waktu;
 				$tanggal = $child->tanggal;
-				echo $nim." , ".$tanggal." , ".$waktu."<br>";
-		    	$query = $this->db->query("SELECT id_absensi FROM absensi, jadwal_mahasiswa WHERE jadwal_mahasiswa.id_jadwal_mahasiswa = absensi.id_jadwal_mahasiswa AND jadwal_mahasiswa.nim = $nim  AND absensi.jam is null");
+				$query = $this->db->query("SELECT id_absensi FROM absensi, jadwal_mahasiswa WHERE jadwal_mahasiswa.id_jadwal_mahasiswa = absensi.id_jadwal_mahasiswa AND jadwal_mahasiswa.nim = $nim  AND absensi.jam is null AND status_kelas='buka'");
 		    	foreach ($query->result_array() as $row) {
 		    		$id_absensi = $row['id_absensi'];
 		    		$data = array(	'status' =>'hadir' ,
 		    						'jam'=>$waktu );
 		    		$this->db->update('absensi', $data,"id_absensi='$id_absensi'");
-		    	} 
+		    	}
+		    	// array_push(array, var)
+		    	$ii =(integer) $id;
+		    	array_push($link, $ii);
+		    	// $link = $link."id[]=".$id."&";
 			}
+			// require('http://localhost/fp/delete.php?'.$link);
+		    // require_once(APPPATH.'libraries/fingerprint.php');
+			
+			$this->fingerprint->delete($link);
+			// print_r($link);
+		}	
+			// if ($tes == 'relod') {
+		
+			// }
+			// elseif($tes=='tes'){
+			// 	redirect(base_url().'Absensi/reload');
+			// }
+		// redirect(base_url().'Absensi/tarikData');
+	}
+	public function hapusData($id_array, $ip_address){
+		$link = "";
+		foreach ($id_array as $data_hapus) {
+			$link = $link."id[]=".$data_hapus."&";
+		}
+		// redirect('http://'.$ip_address.":8080/fp/delete.php?".$link);
+		redirect('http://'.$ip_address.':8080/fp/delete.php?'.$link);
+		// redirect(base_url().'Absensi/tarikData');
 	}
 	public function isiAbsensi(){
 		$tanggal = date('Y-n-j');
@@ -60,33 +105,45 @@ class Absensi extends CI_Controller {
 		$id_jadwal = $this->input->post('id_jadwal');
 		$id_ruang = $this->input->post('id_ruang');
 		
-		$this->load->model('model_absensi');
-		$jadwal = $this->model_absensi->lihatJadwal($id_jadwal);
-		$tanggal = date('Y-n-j');
-		foreach ($jadwal->result_array() as $row) {
-			$data = array(
-						'id_absensi' => '',
-						'tanggal' => $tanggal, 
-						'id_jadwal_mahasiswa' => $row['id_jadwal_mahasiswa'],
-						'id_ruang' => $id_ruang,
-						'status' => 'tidak hadir',
-						'status_kelas'=>'buka'
-				);
-			$this->db->insert('absensi', $data);
+		$this->db->where('id_ruang', $id_ruang);
+		$this->db->where('status_kelas', 'buka');
+		$hasil =$this->db->get('absensi');
+		if ($hasil->num_rows()>0) {
+			$this->session->set_flashdata('message_name', "<p style='color:white' class='alert alert-danger alert-dismissable'>Ruang masih dipakai<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button></p>");
+		}else{
+
+			$this->load->model('model_absensi');
+			$jadwal = $this->model_absensi->lihatJadwal($id_jadwal);
+			$tanggal = date('Y-n-j');
+			foreach ($jadwal->result_array() as $row) {
+				$data = array(
+							'id_absensi' => '',
+							'tanggal' => $tanggal, 
+							'id_jadwal_mahasiswa' => $row['id_jadwal_mahasiswa'],
+							'id_ruang' => $id_ruang,
+							'status' => 'tidak hadir',
+							'jam'=> null,
+							'status_kelas'=>'buka'
+					);
+				$this->db->insert('absensi', $data);
+			}
 		}
 		redirect(base_url().'home/jadwalHariIni');
 	}
 	public function tutupKelas(){
+		date_default_timezone_set('Asia/Jakarta');
 		$id_jadwal = $this->input->post('id_jadwal');
-		//$id_ruang = $this->input->post('id_ruang');
+		$id_ruang = $this->input->post('id_ruang');
 
  		$this->load->model('model_absensi');
-		$jadwal = $this->model_absensi->lihatJadwal($id_jadwal);
+		$jadwal = $this->model_absensi->lihatJadwalTutup($id_jadwal);
+		$data = array('status_kelas' =>'tutup');
 		foreach ($jadwal->result_array() as $row) {
-			$this->db->delete('jadwal_hari_ini', array('id_jadwal_mahasiswa' => $row['id_jadwal_mahasiswa'])); 
+			$this->db->where('id_absensi', $row['id_absensi']);
+			$this->db->update('absensi',$data); 
 		}
 		redirect(base_url().'home/jadwalHariIni');
-	}
+	} 
 
 	public function absenMahasiswa(){
 		$nim = $this->input->post('nim');
@@ -108,8 +165,20 @@ class Absensi extends CI_Controller {
 		}
 		redirect(base_url().'ortu/absensiMahasiswa');
 	}
+	public function jajal()
+	{
+		// header('Refresh:2');
+		// if(1==1){
+		// $this->tarikData();
+		// $this->load->view('jajal/jajal');
+$this->load->view('template/header');
+			// $this->load->view('template/footer');
+			
+		// }else{
 
-	// public function tarikData(){
+		// }
+	}
+// public function tarikData(){
 	// 	$IP  ="192.168.1.201";
 	// 	$id  = "All";
 	// 	$key = 0;
@@ -139,6 +208,7 @@ class Absensi extends CI_Controller {
 	// 		$info[$a] = array('PIN'=>$PIN , 'DateTime'=> $DateTime, 'Verified'=>$Verified, 'Status'=>$Status );
 	// 	}
 	// } 
+	
 }
 ?>
 
