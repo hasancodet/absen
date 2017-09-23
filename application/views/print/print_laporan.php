@@ -42,8 +42,8 @@
         <div class="row">
           <div class="col-xs-12">
             <h2 class="page-header">
-              <i class="fa fa-university"></i> Sekolah Vokasi
-              <small class="pull-right">Date: <?php echo date("d m Y");?></small>
+              <i class="fa fa-university"></i> KOMSI UGM
+              <small class="pull-right">Date: <?php date_default_timezone_set('Asia/Jakarta');echo date("d m Y");?></small>
             </h2>
           <div class="col-xs-12">
             <?php foreach ($jadwal->result() as $row) { ?>
@@ -103,7 +103,7 @@
                       <td><?php echo $row['jumlah_presensi'] ;?></td>
                       <td><?php echo $row['presentase']." %" ;?></td>
                       <?php $persen = $row['presentase'];
-                            if ($persen > 75 ) {
+                            if ($persen >= 75 ) {
                               echo "<td>MEMENUHI</td>";
                             }else{
                               echo "<td style='color:red'>TIDAK MEMENUHI</td>";

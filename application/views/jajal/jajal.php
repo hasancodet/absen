@@ -1,5 +1,5 @@
 <?php
-echo "tampilan jajaljajal";
+echo "tampilan jajaljajal $ini";
 // require('http://localhost/fp/delete.php?'.$link);
 // print_r($xml);
       // echo date('j-n-Y e')."</br>";

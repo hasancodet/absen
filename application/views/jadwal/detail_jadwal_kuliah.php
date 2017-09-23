@@ -3,7 +3,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Sistem Informasi Absensi Sekolah Vokasi
+            Sistem Informasi Presensi KOMSI UGM
             <small></small>
           </h1>
         </section>
@@ -14,7 +14,7 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Data Presentase Absensi Mata Kuliah</h3>
+                  <h3 class="box-title">Data Presentase Presensi Mata Kuliah</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   	<?php foreach ($jadwal->result() as $row) { ?>

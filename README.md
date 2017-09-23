@@ -1,1 +1,1 @@
-# Tugas akhir berjudul Sistem Absensi Terintegrasi Sekolah Vokasi UGM
+# Tugas akhir berjudul Sistem Absensi Terintegrasi KOMSI UGM

@@ -13,23 +13,59 @@ class Absensi extends CI_Controller {
 		header('Refresh:10');
 		$hasil = $this->db->query("SELECT DISTINCT ip_address
 									FROM absensi, ruang
-									WHERE absensi.id_ruang = ruang.id_ruang");
+									WHERE absensi.id_ruang = ruang.id_ruang
+									AND absensi.status_kelas = 'buka'");
 		if($hasil->num_rows() == 0){
-			$this->load->view('jajal/jajal');
+			$this->load->view('jajal/jajal', $ini);
 
 		}else{
 			$this->load->library('fingerprint');
 			foreach ($hasil->result_array() as $row){
 				$ip_address = $row['ip_address'];
-				$this->fingerprint->tarikDataa($ip_address);
+				//$this->fingerprint->tarikDataa($ip_address);
+					$xml = simplexml_load_file("http://$ip_address:8080/fp/daftar_absen.xml");	 
+					// $xml = simplexml_load_file('http://localhost/fp/daftar_absen.xml');
+					// $this->load->view('jajal/jajal', $xml);
+					$list = $xml->xpath('row');
+					if (count($list)==0){
+						// echo count($list);
+						// print_r($xml);
+
+						// $this->load->view('jajal/jajal');
+						// redirect('absensi/tarikData');
+					}else{
+						$link=array();
+
+						foreach($xml->children() as $child){  
+							$id = $child->id;
+							$nim = $child->PIN;
+							$waktu = $child->waktu;
+							$tanggal = $child->tanggal;
+							$query = $this->db->query("SELECT id_absensi FROM absensi, jadwal_mahasiswa WHERE jadwal_mahasiswa.id_jadwal_mahasiswa = absensi.id_jadwal_mahasiswa AND jadwal_mahasiswa.nim = $nim  AND absensi.jam is null AND status_kelas='buka'");
+					    	foreach ($query->result_array() as $row) {
+					    		$id_absensi = $row['id_absensi'];
+					    		$data = array(	'status' =>'hadir' ,
+					    						'jam'=>$waktu );
+					    		$this->db->update('absensi', $data,"id_absensi='$id_absensi'");
+					    	}
+					    	// array_push(array, var)
+					    	$ii =(integer) $id;
+					    	array_push($link, $ii);
+					    	// $link = $link."id[]=".$id."&";
+						}
+						// require('http://localhost/fp/delete.php?'.$link);
+					    // require_once(APPPATH.'libraries/fingerprint.php');
+						$this->fingerprint->delete($link, $ip_address);
+						// print_r($link);
+					}
 			}
 		}
 	}
 	public function tarikData(){
 		header('Refresh:5');
 		$this->load->library('fingerprint');
-		// $xml = simplexml_load_file('http://'.$ip_address.":8080/fp/daftar_absen.xml");	 
-		$xml = simplexml_load_file('http://localhost/fp/daftar_absen.xml');
+		$xml = simplexml_load_file("http://192.168.101.11:8080/fp/daftar_absen.xml");	 
+		// $xml = simplexml_load_file('http://localhost/fp/daftar_absen.xml');
 		// $this->load->view('jajal/jajal', $xml);
 		$list = $xml->xpath('row');
 		if (count($list)==0){
@@ -60,8 +96,7 @@ class Absensi extends CI_Controller {
 			}
 			// require('http://localhost/fp/delete.php?'.$link);
 		    // require_once(APPPATH.'libraries/fingerprint.php');
-			
-			$this->fingerprint->delete($link);
+			$this->fingerprint->delete($link, $ip_address);
 			// print_r($link);
 		}	
 			// if ($tes == 'relod') {

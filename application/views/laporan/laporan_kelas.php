@@ -2,7 +2,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Sistem Informasi Absensi Sekolah Vokasi
+            Sistem Informasi Presensi KOMSI UGM
             <small></small>
           </h1>
         </section>

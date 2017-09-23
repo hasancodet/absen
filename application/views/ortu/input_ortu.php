@@ -33,7 +33,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand">Sistem Absensi Terintegrasi Sekolah Vokasi UGM</a>
+          <a class="navbar-brand">Sistem Absensi Terintegrasi KOMSI UGM</a>
         </div>
       </div>
     </nav>
